@@ -1,0 +1,22 @@
+PREFIX=
+
+PROGRAMS=download-archive fork group-privilege services
+SUBCOMMANDS=$(PROGRAMS) browse
+
+all: $(PROGRAMS)
+
+.sh:
+	sed 's|\$$PREFIX|$(PREFIX)|g' $< > $@
+	chmod +x $@
+
+install: all
+	mkdir -p $(PREFIX)/libexec/bitbucket-cli-sub-commands
+	cp auth browse $(PROGRAMS) $(PREFIX)/libexec/bitbucket-cli-sub-commands
+	sed 's|\$$BITBUCKETPATH|$(shell dirname `which bitbucket`)/bb|g' profile.template | sed 's|\$$PREFIX|$(PREFIX)|g' | sed 's/\$$SUBCOMMANDS/$(shell echo $(SUBCOMMANDS) | tr ' ' '|')/' > profile
+	cat profile
+
+uninstall:
+	rm -rf $(PREFIX)/libexec/bitbucket-cli-sub-commands
+
+clean:
+	rm -f $(PROGRAMS)

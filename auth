@@ -1,0 +1,20 @@
+#!/bin/bash
+
+CONF=$HOME/.bitbucket
+if [ ! -f $CONF ]
+then
+  echo "$CONF dosen't exist." >&2
+  exit 1
+fi
+export USERNAME=$(grep '^\s*username' $CONF | cut -d = -f 2 | tail -1 | tr -d ' ')
+if [ -z $USERNAME ]
+then
+  echo "Invalid username." >&2
+  exit 1
+fi
+export PASSWORD=$(grep '^\s*password' $CONF | cut -d = -f 2 | tail -1 | tr -d ' ')
+if [ -z $PASSWORD ]
+then
+  echo "Invalid password." >&2
+  exit 1
+fi

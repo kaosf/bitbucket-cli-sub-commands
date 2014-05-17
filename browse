@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+then
+  REMOTE=origin
+else
+  REMOTE=$1
+fi
+
+X=$(git remote -v | grep $REMOTE | grep '(push)' | awk '{print $2}')
+if [[ ! $X =~ 'bitbucket.org' ]]
+then
+  echo "It isn't a Bitbucket repository." 1>&2
+  exit 1
+fi
+OWNER=$(echo $X | cut -d ':' -f 2 | cut -d '/' -f 1)
+REPOS=$(echo $X | cut -d '/' -f 2 | cut -d '.' -f 1)
+
+$BROWSER https://bitbucket.org/${OWNER}/${REPOS}

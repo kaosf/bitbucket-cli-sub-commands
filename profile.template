@@ -1,0 +1,19 @@
+################################################################################
+# Paste following code to your .profile, .bash_profile or etc.
+################################################################################
+
+bb () {
+  if [ -z $1 ]
+  then
+    $BITBUCKETPATH
+  else
+    SUBCOMMAND=$1
+    shift
+    case $SUBCOMMAND in
+      $SUBCOMMANDS)
+        $PREFIX/libexec/bitbucket-cli-sub-commands/$SUBCOMMAND $@;;
+      *)
+        $BITBUCKETPATH $SUBCOMMAND $@;;
+    esac
+  fi
+}
