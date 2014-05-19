@@ -1,18 +1,28 @@
 #!/bin/bash
 
-if [ $# -lt 1 ]
+X=$(git remote -v | grep bitbucket.org | grep '(push)' | awk '{print $1 " " $2}')
+if [ $(echo "$X" | wc -l) = 0 ]
 then
-  REMOTE=origin
-else
-  REMOTE=$1
-fi
-
-X=$(git remote -v | grep $REMOTE | grep '(push)' | awk '{print $2}')
-if [[ ! $X =~ 'bitbucket.org' ]]
-then
-  echo "It isn't a Bitbucket repository." 1>&2
+  echo "This isn't a Bitbucket repository." >&2
   exit 1
 fi
+if [ $(echo "$X" | wc -l) -gt 1 ]
+then
+  if [ $# -lt 1 ]
+  then
+    REMOTE=origin
+  else
+    REMOTE=$1
+  fi
+  if [ $(echo "$X" | grep "^$REMOTE " | wc -l) != 1 ]
+  then
+    echo "Can't detect one repository." >&2
+    exit 1
+  else
+    X=$(echo "$X" | grep "^$REMOTE ")
+  fi
+fi
+X=$(echo $X | awk '{print $2}')
 OWNER=$(echo $X | cut -d ':' -f 2 | cut -d '/' -f 1)
 REPOS=$(echo $X | cut -d '/' -f 2 | cut -d '.' -f 1)
 
