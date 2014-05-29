@@ -3,7 +3,7 @@
 CONF=$HOME/.bitbucket
 if [ ! -f $CONF ]
 then
-  echo "$CONF dosen't exist." >&2
+  echo "$CONF doesn't exist." >&2
   exit 1
 fi
 export USERNAME=$(grep '^\s*username' $CONF | cut -d = -f 2 | tail -1 | tr -d ' ')
