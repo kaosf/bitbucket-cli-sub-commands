@@ -48,4 +48,4 @@ Set `BROWSER` environment variable to `bb browse`. For example,
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright &copy; 2014 ka
+Copyright (C) 2014 ka
