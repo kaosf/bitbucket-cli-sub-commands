@@ -12,11 +12,21 @@ all: $(PROGRAMS)
 install: all
 	mkdir -p $(PREFIX)/libexec/bitbucket-cli-sub-commands
 	cp auth browse $(PROGRAMS) $(PREFIX)/libexec/bitbucket-cli-sub-commands
+	cp browse           $(PREFIX)/bin/bb-browse
+	cp download-archive $(PREFIX)/bin/bb-download-archive
+	cp fork             $(PREFIX)/bin/bb-fork
+	cp group-privilege  $(PREFIX)/bin/bb-group-privilege
+	cp services         $(PREFIX)/bin/bb-services
 	sed 's|\$$BITBUCKETPATH|$(shell dirname `which bitbucket`)/bb|g' profile.template | sed 's|\$$PREFIX|$(PREFIX)|g' | sed 's/\$$SUBCOMMANDS/$(shell echo $(SUBCOMMANDS) | tr ' ' '|')/' > profile
 	cat profile
 
 uninstall:
 	rm -rf $(PREFIX)/libexec/bitbucket-cli-sub-commands
+	rm $(PREFIX)/bin/bb-browse
+	rm $(PREFIX)/bin/bb-download-archive
+	rm $(PREFIX)/bin/bb-fork
+	rm $(PREFIX)/bin/bb-group-privilege
+	rm $(PREFIX)/bin/bb-services
 
 clean:
 	rm -f $(PROGRAMS)
