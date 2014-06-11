@@ -3,6 +3,8 @@
 Add `browse`, `download-archive`, `fork`, `group-privilege` and `services` sub
 commands to `bb` command.
 
+Not a sub command, single command such as `bb-browse` can be also used.
+
 ## Prerequisites
 
 * Python 2.x and pip (for BitBucket CLI)
