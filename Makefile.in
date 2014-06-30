@@ -1,6 +1,6 @@
 PREFIX=
 
-PROGRAMS=download-archive fork group-privilege services
+PROGRAMS=deploy-keys download-archive fork group-privilege services
 SUBCOMMANDS=$(PROGRAMS) browse
 
 all: $(PROGRAMS)
@@ -13,6 +13,7 @@ install: all
 	mkdir -p $(PREFIX)/libexec/bitbucket-cli-sub-commands
 	cp auth browse $(PROGRAMS) $(PREFIX)/libexec/bitbucket-cli-sub-commands
 	cp browse           $(PREFIX)/bin/bb-browse
+	cp deploy-keys      $(PREFIX)/bin/bb-deploy-keys
 	cp download-archive $(PREFIX)/bin/bb-download-archive
 	cp fork             $(PREFIX)/bin/bb-fork
 	cp group-privilege  $(PREFIX)/bin/bb-group-privilege

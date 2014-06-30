@@ -1,7 +1,7 @@
 # Bitbucket CLI sub commands
 
-Add `browse`, `download-archive`, `fork`, `group-privilege` and `services` sub
-commands to `bb` command.
+Add `browse`, `deploy-keys`, `download-archive`, `fork`, `group-privilege` and
+`services` sub commands to `bb` command.
 
 Not a sub command, single command such as `bb-browse` can be also used.
 
