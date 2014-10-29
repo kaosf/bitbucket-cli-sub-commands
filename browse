@@ -24,6 +24,6 @@ then
 fi
 X=$(echo $X | awk '{print $2}')
 OWNER=$(echo $X | cut -d ':' -f 2 | cut -d '/' -f 1)
-REPOS=$(echo $X | cut -d '/' -f 2 | cut -d '.' -f 1)
+REPOS=$(echo $X | cut -d '/' -f 2 | awk -F '.git' '{print $1}')
 
 $BROWSER https://bitbucket.org/${OWNER}/${REPOS}
