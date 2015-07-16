@@ -26,10 +26,13 @@ X=$(echo $X | awk '{print $2}')
 OWNER=$(echo $X | cut -d ':' -f 2 | cut -d '/' -f 1)
 REPOS=$(echo $X | cut -d '/' -f 2 | awk -F '.git' '{print $1}')
 
-if [ -z $BROWSER ]
-then
-  BROWSER=firefox
+if which xdg-open > /dev/null; then
+  BROWSER=xdg-open
+elif sw_vers > /dev/null; then
+  BROWSER=open
+elif [ ! -z $BROWSER ]; then
   echo "Use firefox defaultly." >&2
   echo "!!!! Set \"BROWSER\" environment variable is recommended. !!!!" >&2
+  BROWSER=firefox
 fi
 $BROWSER https://bitbucket.org/${OWNER}/${REPOS}
