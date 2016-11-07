@@ -26,6 +26,7 @@ install: all
 uninstall:
 	rm -rf $(PREFIX)/libexec/bitbucket-cli-sub-commands
 	rm $(PREFIX)/bin/bb-browse
+	rm $(PREFIX)/bin/bb-deploy-keys
 	rm $(PREFIX)/bin/bb-download-archive
 	rm $(PREFIX)/bin/bb-fork
 	rm $(PREFIX)/bin/bb-group-privilege
