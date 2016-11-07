@@ -3,11 +3,14 @@ PREFIX=
 PROGRAMS=deploy-keys download-archive fork group-privilege services
 SUBCOMMANDS=$(PROGRAMS) browse
 
-all: $(PROGRAMS)
+all: $(PROGRAMS) profile
 
 .sh:
 	sed 's|\$$PREFIX|$(PREFIX)|g' $< > $@
 	chmod +x $@
+
+profile:
+	sed 's|\$$BITBUCKETPATH|$(shell dirname `which bitbucket`)/bb|g' profile.template | sed 's|\$$PREFIX|$(PREFIX)|g' | sed 's/\$$SUBCOMMANDS/$(shell echo $(SUBCOMMANDS) | tr ' ' '|')/' > profile
 
 install: all
 	mkdir -p $(PREFIX)/libexec/bitbucket-cli-sub-commands
@@ -18,7 +21,6 @@ install: all
 	cp fork             $(PREFIX)/bin/bb-fork
 	cp group-privilege  $(PREFIX)/bin/bb-group-privilege
 	cp services         $(PREFIX)/bin/bb-services
-	sed 's|\$$BITBUCKETPATH|$(shell dirname `which bitbucket`)/bb|g' profile.template | sed 's|\$$PREFIX|$(PREFIX)|g' | sed 's/\$$SUBCOMMANDS/$(shell echo $(SUBCOMMANDS) | tr ' ' '|')/' > profile
 	cat profile
 
 uninstall:
@@ -30,4 +32,4 @@ uninstall:
 	rm $(PREFIX)/bin/bb-services
 
 clean:
-	rm -f $(PROGRAMS)
+	rm -f $(PROGRAMS) profile
